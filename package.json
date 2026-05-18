@@ -1,0 +1,38 @@
+{
+  "name": "backend-react-basico-formik",
+  "version": "1.0.0",
+  "description": "Um backend simples para uma apresentação da lib formik, acho que vai ter apenas as rotas de user e produto e os schema e conexão db com prisma",
+  "keywords": [
+    "JS",
+    "Prisma.io",
+    "Cors"
+  ],
+  "homepage": "https://github.com/AngeloTPK/backend-react-basico-formik#readme",
+  "bugs": {
+    "url": "https://github.com/AngeloTPK/backend-react-basico-formik/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AngeloTPK/backend-react-basico-formik.git"
+  },
+  "license": "ISC",
+  "author": "Angelo",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx --watch --env-file=.env src/server.js"
+  },
+  "dependencies": {
+    "@prisma/adapter-mariadb": "^7.8.0",
+    "@prisma/client": "^7.8.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.0",
+    "prisma": "^7.8.0",
+    "tsx": "^4.22.2"
+  }
+}
