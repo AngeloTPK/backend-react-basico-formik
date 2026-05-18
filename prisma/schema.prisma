@@ -27,7 +27,7 @@ model projeto {
   id Int @id @default(autoincrement())
   nomeProjeto       String
   descricaoProjeto  String
-  dataInicio        DateTime
+  dataInicio        DateTime @default(now())
   
   integrantes       menbrosProjeto[]
 }

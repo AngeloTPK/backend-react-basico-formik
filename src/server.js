@@ -4,7 +4,9 @@ import { prisma } from '../lib/prisma.js';
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 
+const port = 3333;
 
 // Rotas para parceiros
 
@@ -52,16 +54,16 @@ app.get('/partner', async (req, res) => {
 // rotas projetos
 
 app.post('/project', async (req, res) => {
-  const { nomeProjeto, descricao, integrantes } = req.body;
+  const { nomeProjeto, descricao, menbrosProjeto } = req.body;
   let result;
 
   try {
-    result = await prisma.project.create({
-      data: {
+    result = await prisma.projeto.create({
+      data: { 
         nomeProjeto,
-        descricao,
+        descricaoProjeto: descricao,
         integrantes: {
-          create: integrantes 
+          create: menbrosProjeto 
         }
       },
       include: {
@@ -84,9 +86,9 @@ app.get('/project', async (req, res) => {
   let result;
 
   try {
-    result = await prisma.project.findMany({
+    result = await prisma.projeto.findMany({
       include: {
-        integrantes: true 
+        menbrosProjeto: true 
       }
     })
   } catch (error) {
@@ -95,4 +97,8 @@ app.get('/project', async (req, res) => {
   }
 
   return res.json(result);
-})
+});
+
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta ${port}`);
+});
