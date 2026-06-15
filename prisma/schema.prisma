@@ -14,7 +14,7 @@ datasource db {
 
 model parceiros {
   razao_social     String
-  cnpj             String  @id
+  cnpj             String   @id
   nomeResponsavel  String
   email            String
   telefone         String
@@ -24,19 +24,28 @@ model parceiros {
 }
 
 model projeto {
-  id Int @id @default(autoincrement())
-  nomeProjeto       String
-  descricaoProjeto  String
-  dataInicio        DateTime @default(now())
-  
-  integrantes       menbrosProjeto[]
+  id               Int      @id @default(autoincrement())
+  nomeProjeto      String
+  descricaoProjeto String
+  dataInicio       DateTime @default(now())
+
+  integrantes menbrosProjeto[]
 }
 
 model menbrosProjeto {
-  id Int @id @default(autoincrement())
-  nomeMembro        String
-  emailMembro       String
+  id          Int    @id @default(autoincrement())
+  nomeMembro  String
+  emailMembro String
 
-  projetoId         Int
-  projeto           projeto @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  projetoId Int
+  projeto   projeto @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+}
+
+model UserSignup {
+  id        Int      @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String   @unique
+  jobType   String
+  createdAt DateTime @default(now())
 }

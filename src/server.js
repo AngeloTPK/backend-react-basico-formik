@@ -59,11 +59,11 @@ app.post('/project', async (req, res) => {
 
   try {
     result = await prisma.projeto.create({
-      data: { 
+      data: {
         nomeProjeto,
         descricaoProjeto: descricao,
         integrantes: {
-          create: menbrosProjeto 
+          create: menbrosProjeto
         }
       },
       include: {
@@ -88,7 +88,7 @@ app.get('/project', async (req, res) => {
   try {
     result = await prisma.projeto.findMany({
       include: {
-        menbrosProjeto: true 
+        menbrosProjeto: true
       }
     })
   } catch (error) {
@@ -98,6 +98,35 @@ app.get('/project', async (req, res) => {
 
   return res.json(result);
 });
+
+
+app.post('/api/signup', async (req, res) => {
+  const { firstName, lastName, email, jobType } = req.body;
+
+  if (!firstName || !lastName || !email || !jobType) {
+    return res.status(400).json({ error: "Todos os campos são obrigatórios." });
+  }
+
+  try {
+    const novoUsuario = await prisma.userSignup.create({
+      data: {
+        firstName,
+        lastName,
+        email,
+        jobType,
+      },
+    });
+
+    return res.status(201).json({ message: "Cadastrado com sucesso!", data: novoUsuario });
+  } catch (error) {
+    console.error("Erro no Prisma:", error);
+    if (error.code === 'P2002') {
+      return res.status(400).json({ error: "Este e-mail já está cadastrado." });
+    }
+    return res.status(500).json({ error: "Erro interno ao salvar no banco de dados." });
+  }
+});
+
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
